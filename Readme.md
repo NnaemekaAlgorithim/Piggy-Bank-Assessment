@@ -11,7 +11,7 @@ This file contains the complete code that creates the relational database system
 * [Db_shcema_plan](./project-plan/Db_schema_plan)
 This file is the representation of how the database structure would look like.
 
-* [piggy-bank-flow-chart](./project-plan/piggy-bank.png)
+* [piggy-bank-flow-chart](./project-plan/piggy-bank-flow-chart.png)
 This the flow chart diagram for the implementation of the project
 
 * [piggy-bank-database-schema-flow-chart](./project-plan/piggy-bank-database-schema-flow-chart.png)
