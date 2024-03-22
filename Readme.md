@@ -14,5 +14,5 @@ This file is the representation of how the database structure would look like.
 * [piggy-bank-flow-chart](./project-plan/piggy-bank-flow-chart.png)
 This the flow chart diagram for the implementation of the project
 
-* [piggy-bank-database-schema-flow-chart](./project-plan/piggy-bank-database-schema-flow-chart.png)
+* [piggy-bank-ERD](./project-plan/piggy-bank-ERD.png)
 This is the Entity-Relationship Diagram (ERD) for the database system of this project.
