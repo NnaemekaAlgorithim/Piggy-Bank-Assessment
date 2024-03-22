@@ -1,0 +1,28 @@
+PIGGY BANK DATABASE SCHEMA
+
++----------------------------+
+| user                       |
++----------------------------+
+| user_id(PK)                |
+| first_name                 |
+| last_name                  |
+| email                      |
+| email_verified             |
+| verification_token         |
+| created_at                 |
+| updated_at                 |
+| user_password              |
++----------------------------+
+
++------------------------------------------+
+| transactions                             |
++------------------------------------------+
+| transaction_user_id(FK, user -> user_id) |
+| transaction_id(PK)                       |
+| amount                                   |
+| currency                                 |
+| category                                 |
+| transaction_description                  |
+| created_at                               |
+| updated_at                               |
++------------------------------------------+

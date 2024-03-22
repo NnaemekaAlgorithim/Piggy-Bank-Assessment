@@ -1,0 +1,26 @@
+CREATE TABLE user (
+    user_id CHAR(36) PRIMARY KEY,
+    first_name VARCHAR(255) NOT NULL,
+    last_name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    email_verified BOOLEAN NOT NULL,
+    verification_token VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    user_password VARCHAR(255) NOT NULL
+);
+
+-- Create an index on the user_id column
+CREATE INDEX idx_user_id ON user (user_id);
+
+CREATE TABLE transactions (
+    transaction_user_id CHAR(36) NOT NULL,
+    transaction_id CHAR(36) PRIMARY KEY,
+    amount DECIMAL(10, 2) NOT NULL,
+    currency VARCHAR(255) NOT NULL,
+    category VARCHAR(255) NOT NULL,
+    transaction_description VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (transaction_user_id) REFERENCES user(user_id)
+);
