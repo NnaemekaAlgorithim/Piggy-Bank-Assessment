@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 """Defines the Transactions class."""
-from uuid import uuid4
-from sqlalchemy import Column, ForeignKey
+from sqlalchemy import Column, ForeignKey, Integer
 from sqlalchemy import String, Float
 from sqlalchemy import Text
 from models.base_model import BaseModel
@@ -22,7 +21,7 @@ class Transactions(BaseModel, Base):
     """
     __tablename__ = "transactions"
     transaction_user_id = Column(String(128), ForeignKey('user.user_id'))
-    transaction_id = Column(String(60), primary_key=True, default=uuid4().hex)
+    transaction_id = Column(Integer, primary_key=True, autoincrement=True)
     amount = Column(Float)
     currency = Column(String(128))
     category = Column(String(128))

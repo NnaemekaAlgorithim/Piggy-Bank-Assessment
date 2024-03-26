@@ -19,7 +19,6 @@ class BaseModel:
         updated_at (sqlalchemy DateTime): The datetime of last update.
     """
 
-    user_id = Column(String(60), primary_key=True, default=uuid4().hex)
     created_at = Column(DateTime, nullable=False, default=datetime.now())
     updated_at = Column(DateTime, nullable=False, default=datetime.now())
 

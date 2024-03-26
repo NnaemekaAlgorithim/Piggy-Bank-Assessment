@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 """Defines the User class."""
+from uuid import uuid4
 import models
 from sqlalchemy import Column
 from sqlalchemy import String
@@ -23,6 +24,7 @@ class User(BaseModel, Base):
     last_name = Column(String(128))
     email = Column(String(128), nullable=False)
     user_password = Column(String(128), nullable=False)
+    user_id = Column(String(60), primary_key=True, default=uuid4().hex)
 
     def check_if_user_exist(email):
         """retrives current instance from storage if it exists"""
