@@ -11,6 +11,14 @@ active_sessions = {}
 
 @log_in.route('/login', methods=['POST'])
 def login():
+    """Defines the login method.
+
+    Attributes:
+        user (object of the user class).
+        data (json data object): used to collect user data from pay load.
+        email (json email data): used to collect email from payload.
+        user_password (json data): used to collect password from payload.
+    """
     try:
         data = request.get_json()
         email = data.get('email')
@@ -52,6 +60,11 @@ def login():
 @log_in.route('/logout', methods=['POST'])
 @jwt_required()  # Requires a valid JWT token
 def logout():
+    """Defines the logout method.
+
+    Attributes:
+        user_id (user_id from jwt): The user_id of current user session.
+    """
     try:
         # Remove user's identity from session
         session.pop('user_id', None)
