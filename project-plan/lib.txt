@@ -20,3 +20,13 @@ curl -X POST http://localhost:5000/login -H "Content-Type: application/json" -d 
 }'
 
 curl -X POST http://localhost:5000/logout -H "Authorization: Bearer <your_access_token>"
+
+curl -X POST http://localhost:5000/add_transaction \
+-H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcxMTQ4NDgwOCwianRpIjoiMTA4NzhlYTAtMjA3YS00MmViLWJhZWEtNDAyM2M2NGY3ZjE4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImE1NzBlMDEzZDdjZjRiYTY5NzNiYzFjYzNmMWFjZjI3IiwibmJmIjoxNzExNDg0ODA4LCJjc3JmIjoiM2RhODQ3OWQtZTAxOC00Y2JiLThhNGYtM2ZiYTJhNmViYTUzIiwiZXhwIjoxNzExNDg1NzA4fQ.npWfHtQstRUhsu04rcN9v0VyOQcc2pqtXLfQbgsjNGg" \
+-H "Content-Type: application/json" \
+-d '{
+    "amount": 100.50,
+    "currency": "USD",
+    "category": "Groceries",
+    "transaction_description": "Grocery shopping"
+}'
