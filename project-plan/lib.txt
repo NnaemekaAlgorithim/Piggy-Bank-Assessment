@@ -1,0 +1,22 @@
+install mysql
+install sqlalchemy
+install pymysql
+install flask
+install flask_bcrypt
+install flask-jwt-extended
+install cryptography
+
+
+curl -X POST http://localhost:5000/register -H "Content-Type: application/json" -d '{
+    "first_name": "Jerry",
+    "last_name": "pam",
+    "email": "jerrypam@example.com",
+    "password": "jerry247"
+}'
+
+curl -X POST http://localhost:5000/login -H "Content-Type: application/json" -d '{
+    "email": "jerrypam@example.com",
+    "user_password": "jerry247"
+}'
+
+curl -X POST http://localhost:5000/logout -H "Authorization: Bearer <your_access_token>"
