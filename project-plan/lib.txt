@@ -30,3 +30,13 @@ curl -X POST http://localhost:5000/add_transaction \
     "category": "Groceries",
     "transaction_description": "Grocery shopping"
 }'
+
+curl -X PUT http://localhost:5000/edit_transaction/1 \
+-H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcxMTQ4OTU3OSwianRpIjoiMzBhYjhhZjgtZDE1Ni00ODczLThiYzctN2NhZDFiNTA4ZTNhIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImE1NzBlMDEzZDdjZjRiYTY5NzNiYzFjYzNmMWFjZjI3IiwibmJmIjoxNzExNDg5NTc5LCJjc3JmIjoiZmEzODcxODYtMjExZS00OTMyLWEyN2UtNmIzMjcxYTFmN2YxIiwiZXhwIjoxNzExNDkwNDc5fQ.sdaQZSKp1dEtZ9RU_aUW0Kd__E0TvaW7wV4EnIFbcHQ" \
+-H "Content-Type: application/json" \
+-d '{
+    "amount": 150.75,
+    "currency": "USD",
+    "category": "Shopping",
+    "transaction_description": "Grocery shopping and household items"
+}'
