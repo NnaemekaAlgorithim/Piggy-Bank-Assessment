@@ -2,6 +2,7 @@ from flask import Flask
 from registration import reg
 from login import log_in
 from create_new_transaction import transact
+from edit_transaction import edit_transact
 from flask_jwt_extended import JWTManager
 import secrets
 
@@ -20,6 +21,7 @@ jwt = JWTManager(app)
 app.register_blueprint(reg)
 app.register_blueprint(log_in)
 app.register_blueprint(transact)
+app.register_blueprint(edit_transact)
 
 if __name__ == '__main__':
     app.run()
