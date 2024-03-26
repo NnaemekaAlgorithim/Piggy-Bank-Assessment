@@ -5,6 +5,7 @@ from sqlalchemy import String, Float
 from sqlalchemy import Text
 from models.base_model import BaseModel
 from models.base_model import Base
+import models
 
 class Transactions(BaseModel, Base):
     """Represents a transaction for a MySQL database.
@@ -26,3 +27,7 @@ class Transactions(BaseModel, Base):
     currency = Column(String(128))
     category = Column(String(128))
     transaction_description = Column(Text)
+
+    def get_a_transaction(transaction_id, transaction_user_id):
+        """retrives current instance from storage if it exists"""
+        return  models.storage.existing_transaction(transaction_id, transaction_user_id)

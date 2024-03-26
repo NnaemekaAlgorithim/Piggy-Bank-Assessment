@@ -2,6 +2,7 @@
 """Defines the DBStorage engine."""
 from flask_bcrypt import check_password_hash
 from os import getenv
+from models.transaction_model import Transactions
 from models.user_model import User
 from models.base_model import Base
 from models.base_model import BaseModel
@@ -89,3 +90,24 @@ class DBStorage:
             return user
 
         return None
+    
+    def existing_transaction(self, transaction_id=None, transaction_user_id=None):
+        """Retrieve a transaction from the database by transaction_id and transaction_user_id.
+
+        Args:
+            transaction_id (int): The transaction's ID.
+            transaction_user_id (str): The user ID associated with the transaction.
+
+        Returns:
+            Transactions: The matching Transactions object if found, None otherwise.
+        """
+        transaction = self.__session.query(Transactions).filter(
+            Transactions.transaction_id == transaction_id,
+            Transactions.transaction_user_id == transaction_user_id
+        ).first()
+
+        if transaction:
+            return transaction
+
+        return None
+
