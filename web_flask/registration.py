@@ -1,3 +1,4 @@
+import traceback
 from flask import Blueprint, request, jsonify
 from models.user_model import User
 from flask_bcrypt import Bcrypt
@@ -61,4 +62,8 @@ def register():
         return jsonify(message='Registration successful'), 201
 
     except Exception as e:
+        # Log the exception
+        print("Exception occurred in registration method:")
+        traceback.print_exc()
+        
         return jsonify(message='Failed to register user'), 500
