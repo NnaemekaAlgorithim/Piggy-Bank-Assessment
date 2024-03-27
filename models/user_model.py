@@ -24,7 +24,12 @@ class User(BaseModel, Base):
     last_name = Column(String(128))
     email = Column(String(128), nullable=False)
     user_password = Column(String(128), nullable=False)
-    user_id = Column(String(60), primary_key=True, default=uuid4().hex)
+    user_id = Column(String(60), primary_key=True)
+
+    def __init__(self, *args, **kwargs):
+        """Initialize a new User."""
+        super().__init__(*args, **kwargs)
+        self.user_id = uuid4().hex
 
     def check_if_user_exist(email):
         """retrives current instance from storage if it exists"""

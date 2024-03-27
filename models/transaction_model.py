@@ -31,3 +31,7 @@ class Transactions(BaseModel, Base):
     def get_a_transaction(transaction_id, transaction_user_id):
         """retrives current instance from storage if it exists"""
         return  models.storage.existing_transaction(transaction_id, transaction_user_id)
+    
+    def all_transactions(transaction_user_id):
+        """retrives all transaction data for particular user"""
+        return models.storage.all_existing_transactions(transaction_user_id)

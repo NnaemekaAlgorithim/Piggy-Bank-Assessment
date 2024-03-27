@@ -110,4 +110,21 @@ class DBStorage:
             return transaction
 
         return None
+    
+    def all_existing_transactions(self, transaction_user_id=None):
+        """Retrieve transaction from the database by transaction_user_id.
 
+        Args:
+            transaction_user_id (str): The user ID associated with the transaction.
+
+        Returns:
+            Transactions: The matching Transactions object if found, None otherwise.
+        """
+        transaction = self.__session.query(Transactions).filter(
+            Transactions.transaction_user_id == transaction_user_id
+        ).all()
+
+        if transaction:
+            return transaction
+
+        return None
