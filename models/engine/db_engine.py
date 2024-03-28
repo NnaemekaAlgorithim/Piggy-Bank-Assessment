@@ -128,3 +128,78 @@ class DBStorage:
             return transaction
 
         return None
+
+    def all_distinct_types(self, transaction_user_id=None, column_name=None):
+        """Retrieve all distinct values from the specified column for a given transaction_user_id.
+
+        Args:
+            transaction_user_id (str): The user ID associated with the transaction.
+            column_name (str): The name of the column to retrieve distinct values from.
+
+        Returns:
+            list: List of distinct values from the specified column.
+        """
+        if not column_name:
+            raise ValueError("Column name must be provided.")
+
+        transaction = self.__session.query(getattr(Transactions, column_name)).filter(
+            Transactions.transaction_user_id == transaction_user_id
+        ).distinct().all()
+
+        if transaction:
+            return [item[0] for item in transaction]
+
+        return None
+
+    def retrieve_rows(self, transaction_user_id=None, column_name=None, filter_value=None, start_date=None, end_date=None, min_amount=None, max_amount=None):
+        """Retrieve rows based on specified criteria.
+
+        Args:
+            transaction_user_id (str): The user ID associated with the transaction.
+            column_name (str): The name of the column to filter by.
+            filter_value (str): The value to filter the specified column by.
+            start_date (str): The start date of the date range in the format 'YYYY-MM-DD'.
+            end_date (str): The end date of the date range in the format 'YYYY-MM-DD'.
+            min_amount (float): The minimum amount value for the amount range.
+            max_amount (float): The maximum amount value for the amount range.
+
+        Returns:
+            list: List of rows matching the given criteria.
+        """
+        try:
+            if not column_name or (not filter_value and not start_date and not end_date and min_amount is None and max_amount is None):
+                raise ValueError("At least one filtering criterion must be provided.")
+
+            query = self.__session.query(Transactions).filter(
+                Transactions.transaction_user_id == transaction_user_id
+            )
+
+            if column_name and filter_value:
+                query = query.filter(
+                    getattr(Transactions, column_name) == filter_value
+                )
+
+            if start_date and end_date:
+                query = query.filter(
+                    Transactions.created_at.between(start_date, end_date)
+                )
+
+            if min_amount is not None:
+                query = query.filter(
+                    Transactions.amount >= min_amount
+                )
+
+            if max_amount is not None:
+                query = query.filter(
+                    Transactions.amount <= max_amount
+                )
+
+            rows = query.all()
+
+            return rows
+
+        except Exception as e:
+            # Log the exception
+            print("Exception occurred in retrieve_rows function:")
+            print(e)
+            return []
