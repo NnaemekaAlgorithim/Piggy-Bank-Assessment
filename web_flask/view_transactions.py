@@ -33,3 +33,39 @@ def get_transactions():
         print("Exception occurred in get_transactions function:")
         print(e)
         return jsonify({'error': 'Server error occurred.'}), 500
+
+@transact_view.route('/get_distinct_currencies', methods=['GET'])
+@jwt_required()  # Requires a valid JWT token
+def get_distinct_currencies():
+    try:
+        # Get user_id from JWT token
+        transaction_user_id = get_jwt_identity()
+
+        # Fetch distinct currencies associated with the provided user_id
+        distinct_currencies = Transactions.get_types(transaction_user_id, 'currency')
+
+        return jsonify({'distinct_currencies': distinct_currencies}), 200
+
+    except Exception as e:
+        # Log the exception
+        print("Exception occurred in get_distinct_currencies function:")
+        print(e)
+        return jsonify({'error': 'Server error occurred.'}), 500
+
+@transact_view.route('/get_distinct_categories', methods=['GET'])
+@jwt_required()  # Requires a valid JWT token
+def get_distinct_categories():
+    try:
+        # Get user_id from JWT token
+        transaction_user_id = get_jwt_identity()
+
+        # Fetch distinct categories associated with the provided user_id
+        distinct_categories = Transactions.get_types(transaction_user_id, 'category')
+
+        return jsonify({'distinct_categories': distinct_categories}), 200
+
+    except Exception as e:
+        # Log the exception
+        print("Exception occurred in get_distinct_categories function:")
+        print(e)
+        return jsonify({'error': 'Server error occurred.'}), 500
