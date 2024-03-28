@@ -15,8 +15,8 @@ curl -X POST http://localhost:5000/register -H "Content-Type: application/json" 
 }'
 
 curl -X POST http://localhost:5000/login -H "Content-Type: application/json" -d '{
-    "email": "jerrypam@example.com",
-    "user_password": "jerry247"
+    "email": "james@example.com",
+    "user_password": "james247"
 }'
 
 curl -X POST http://localhost:5000/logout -H "Authorization: Bearer <your_access_token>"
@@ -40,3 +40,40 @@ curl -X PUT http://localhost:5000/edit_transaction/1 \
     "category": "Shopping",
     "transaction_description": "Grocery shopping and household items"
 }'
+
+curl -X POST http://localhost:5000/add_transaction -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcxMTUyOTIyMCwianRpIjoiNmE2ZGJhMTYtMDAxNi00ZDE1LTk5NGQtNDZkYmM0NWU1MzZjIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImE1NzBlMDEzZDdjZjRiYTY5NzNiYzFjYzNmMWFjZjI3IiwibmJmIjoxNzExNTI5MjIwLCJjc3JmIjoiNzM0YTYzOTYtMWFmNS00NWE0LWI5OGYtZDNiMTFlY2ViNWU0IiwiZXhwIjoxNzExNTMwMTIwfQ.FJFw3oRSHjfjSNIa4Og17pGSF-xJa_gNwQ2UlWgR5-s" -H "Content-Type: application/json" -d '{
+    "amount": 15.50,
+    "currency": "EUR",
+    "category": "Entertainment",
+    "transaction_description": "Movie Ticket"
+}'
+
+curl -X GET http://localhost:5000/get_transactions \
+     -H "Authorization: Bearer <access_token>"
+
+curl -X GET http://localhost:5000/get_distinct_currencies \
+     -H "Authorization: Bearer <access_token>"
+
+curl -X GET http://localhost:5000/get_distinct_categories \
+     -H "Authorization: Bearer <access_token>"
+
+curl -X GET 'http://localhost:5000/get_rows_by_currency?currency_type=USD' \
+     -H "Authorization: Bearer <access_token>"
+
+curl -X GET 'http://localhost:5000/get_rows_by_category?category_type=Utilities' \
+     -H "Authorization: Bearer <access_token>"
+
+curl -X GET 'http://localhost:5000/get_rows_by_amount_range?min_amount=100&max_amount=500' \
+     -H "Authorization: Bearer <access_token>"
+
+curl -X GET 'http://localhost:5000/get_rows_by_date_range?start_date=2022-01-01&end_date=2022-01-31' \
+     -H "Authorization: Bearer <access_token>"
+
+
+| 15d858fb345c4318909884e1aceb9a64 | Jack       | Sparrow   | jack@example.com     | 2024-03-27 09:14:22 | 2024-03-27 09:14:22 | $2b$12$jlx/vM2XxEvIe1XqBh3yU.yUsZDVtGDVZAlwMDbhPo6sxb1yARs6a |
+| 7cb939e0041f454ba18942970085562d | Jason      | White     | jason@example.com    | 2024-03-27 09:16:26 | 2024-03-27 09:16:26 | $2b$12$HAib3MCcXHOVQ14N.PCjSel9D.sCN/kJIC/NmyH3cjvVT.9wENMli |
+| 808608016af64a09bbd3b08563450802 | Gad        | Justin    | gad@example.com      | 2024-03-27 08:53:47 | 2024-03-27 08:53:47 | $2b$12$.nikpbIyhxmyDeFtDholOOoRQC6w1ymvHHomKd5Lhks1.9jUlih4y |
+| a570e013d7cf4ba6973bc1cc3f1acf27 | Jerry      | pam       | jerrypam@example.com | 2024-03-26 12:13:30 | 2024-03-26 12:13:30 | $2b$12$s1hYQhLHCJPVzbycHDZB4O2p1lrtIapArTx1C4ClsuxUqRt18whyK |
+| cdfe52fa538446ddbe869c871791948f | Hank       | Tom       | hank@example.com     | 2024-03-27 09:15:25 | 2024-03-27 09:15:25 | $2b$12$xGkFgmmkeTmajHBxaYfV4utXtGSdDa2ksC/BFKX9pJvoto/QHmlM. |
+| f3fc310b59f042f09deed5f5d84c78d4 | James      | Foster    | james@example.com    | 2024-03-27 08:57:58 | 2024-03-27 08:57:58 | $2b$12$tzDwGQ8fYFjtnbtajfaIJeBhnHuJTUv6G3YXlr7oQKqM266hqIPGe |
++----------------------------------+------------+-----------+----------------------+---------------------+---------------------+--------------------------------------------------------------+
