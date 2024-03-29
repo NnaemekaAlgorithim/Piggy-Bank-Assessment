@@ -8,10 +8,12 @@ from view_transactions import transact_view
 from delete_transaction import delete_transact
 from delete_account import delete_act
 from flask_jwt_extended import JWTManager
+from flask_cors import CORS
 import secrets
 
 # Create a Flask app
 app = Flask(__name__)
+CORS(app)
 
 # Set the secret key for Flask sessions
 app.config['SECRET_KEY'] = secrets.token_hex(16)

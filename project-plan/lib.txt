@@ -5,7 +5,7 @@ install flask
 install flask_bcrypt
 install flask-jwt-extended
 install cryptography
-
+install flask-cors
 
 curl -X POST http://localhost:5000/register -H "Content-Type: application/json" -d '{
     "first_name": "Jerry",
