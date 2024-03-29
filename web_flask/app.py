@@ -5,6 +5,8 @@ from search import search_by
 from create_new_transaction import transact
 from edit_transaction import edit_transact
 from view_transactions import transact_view
+from delete_transaction import delete_transact
+from delete_account import delete_act
 from flask_jwt_extended import JWTManager
 import secrets
 
@@ -26,6 +28,8 @@ app.register_blueprint(transact)
 app.register_blueprint(edit_transact)
 app.register_blueprint(transact_view)
 app.register_blueprint(search_by)
+app.register_blueprint(delete_transact)
+app.register_blueprint(delete_act)
 
 if __name__ == '__main__':
     app.run()

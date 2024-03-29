@@ -41,10 +41,39 @@ class DBStorage:
         """Commit all changes to the current database session."""
         self.__session.commit()
 
+    def delete_transaction(self, transaction_id, transaction_user_id):
+        """Delete a transaction by its ID and user ID from the current database session."""
+        try:
+            # Query the transaction by its ID and user ID
+            transaction_to_delete = self.__session.query(Transactions).filter(
+                Transactions.transaction_id == transaction_id,
+                Transactions.transaction_user_id == transaction_user_id
+            ).first()
+
+            # Check if the transaction exists
+            if transaction_to_delete is None:
+                return False  # Return False if transaction does not exist
+
+            # Delete the transaction from the session
+            self.__session.delete(transaction_to_delete)
+
+            # Commit the changes to persist the deletion
+            self.__session.commit()
+
+            return True  # Return True to indicate successful deletion
+
+        except Exception as e:
+            # Log the exception or handle it accordingly
+            print("An error occurred while deleting the transaction:", e)
+            self.__session.rollback()  # Rollback changes in case of an error
+            return False  # Return False to indicate deletion failure
+        
     def delete(self, obj=None):
         """Delete obj from the current database session."""
         if obj is not None:
             self.__session.delete(obj)
+            self.__session.commit()
+
     
     def get_user(self, email=None, user_password=None):
         """Retrieve a user from the database by email and password.

@@ -69,6 +69,16 @@ curl -X GET 'http://localhost:5000/get_rows_by_amount_range?min_amount=100&max_a
 curl -X GET 'http://localhost:5000/get_rows_by_date_range?start_date=2022-01-01&end_date=2022-01-31' \
      -H "Authorization: Bearer <access_token>"
 
+curl -X DELETE \
+  http://localhost:5000/delete_transaction/<transaction_id> \
+  -H "Authorization: Bearer <access_token>"
+
+curl -X DELETE http://localhost:5000/delete_account/ \
+-H "Authorization: Bearer YOUR_JWT_TOKEN" \
+-H "Content-Type: application/json" \
+-d '{"email": "user@example.com", "password": "user_password"}'
+
+
 
 | 15d858fb345c4318909884e1aceb9a64 | Jack       | Sparrow   | jack@example.com     | 2024-03-27 09:14:22 | 2024-03-27 09:14:22 | $2b$12$jlx/vM2XxEvIe1XqBh3yU.yUsZDVtGDVZAlwMDbhPo6sxb1yARs6a |
 | 7cb939e0041f454ba18942970085562d | Jason      | White     | jason@example.com    | 2024-03-27 09:16:26 | 2024-03-27 09:16:26 | $2b$12$HAib3MCcXHOVQ14N.PCjSel9D.sCN/kJIC/NmyH3cjvVT.9wENMli |
@@ -77,3 +87,5 @@ curl -X GET 'http://localhost:5000/get_rows_by_date_range?start_date=2022-01-01&
 | cdfe52fa538446ddbe869c871791948f | Hank       | Tom       | hank@example.com     | 2024-03-27 09:15:25 | 2024-03-27 09:15:25 | $2b$12$xGkFgmmkeTmajHBxaYfV4utXtGSdDa2ksC/BFKX9pJvoto/QHmlM. |
 | f3fc310b59f042f09deed5f5d84c78d4 | James      | Foster    | james@example.com    | 2024-03-27 08:57:58 | 2024-03-27 08:57:58 | $2b$12$tzDwGQ8fYFjtnbtajfaIJeBhnHuJTUv6G3YXlr7oQKqM266hqIPGe |
 +----------------------------------+------------+-----------+----------------------+---------------------+---------------------+--------------------------------------------------------------+
+
+mysql -u piggy -p -h localhost

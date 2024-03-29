@@ -57,9 +57,15 @@ class BaseModel:
         my_dict.pop("user_password", None)
         return my_dict
 
-    def delete(self):
+    def delete(self, transaction_id, transaction_user_id):
+        """Delete the current instance from storage."""
+        storage_instance = models.storage 
+        return storage_instance.delete_transaction(transaction_id, transaction_user_id)
+
+    def remove_account(self):
         """Delete the current instance from storage."""
         models.storage.delete(self)
+        
 
     def check_user(email, user_password):
         """retrives current instance from storage"""

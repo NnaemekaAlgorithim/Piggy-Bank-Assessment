@@ -1,0 +1,4 @@
+myenv/
+models/__pycache__/
+web_flask/__pycache__/
+models/engine/__pycache__/
