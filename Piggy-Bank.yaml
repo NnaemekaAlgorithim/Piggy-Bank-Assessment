@@ -123,7 +123,12 @@ paths:
     post:
       summary: User logout
       security:
-        - BearerAuth: []
+        - BearerAuth:
+            type: http
+            scheme: bearer
+            bearerFormat: JWT
+            description: JWT authentication access token is required to access this endpoint.
+
       responses:
         '200':
           description: Logout successful
@@ -170,7 +175,11 @@ paths:
                   type: string
                   example: Grocery shopping
       security:
-        - BearerAuth: []
+        - BearerAuth:
+            type: http
+            scheme: bearer
+            bearerFormat: JWT
+            description: JWT authentication access token is required to access this endpoint.
       responses:
         '200':
           description: Transaction added successfully
@@ -234,7 +243,11 @@ paths:
                   type: string
                   example: Grocery shopping and household items
       security:
-        - BearerAuth: []
+        - BearerAuth:
+            type: http
+            scheme: bearer
+            bearerFormat: JWT
+            description: JWT authentication access token is required to access this endpoint.
       responses:
         '200':
           description: Transaction updated successfully
@@ -271,7 +284,11 @@ paths:
       summary: Retrieve transactions
       description: Endpoint to retrieve transactions
       security:
-        - BearerAuth: []
+        - BearerAuth:
+            type: http
+            scheme: bearer
+            bearerFormat: JWT
+            description: JWT authentication access token is required to access this endpoint.
       responses:
         '200':
           description: Successful operation
@@ -302,7 +319,11 @@ paths:
       summary: Retrieve distinct currencies
       description: Endpoint to retrieve distinct currencies
       security:
-        - BearerAuth: []
+        - BearerAuth:
+            type: http
+            scheme: bearer
+            bearerFormat: JWT
+            description: JWT authentication access token is required to access this endpoint.
       responses:
         '200':
           description: Successful operation
@@ -335,7 +356,11 @@ paths:
       summary: Retrieve distinct categories
       description: Endpoint to retrieve distinct categories
       security:
-        - BearerAuth: []
+        - BearerAuth:
+            type: http
+            scheme: bearer
+            bearerFormat: JWT
+            description: JWT authentication access token is required to access this endpoint.
       responses:
         '200':
           description: Successful operation
@@ -375,7 +400,11 @@ paths:
           required: true
           description: Currency type to filter rows
       security:
-        - BearerAuth: []
+        - BearerAuth:
+            type: http
+            scheme: bearer
+            bearerFormat: JWT
+            description: JWT authentication access token is required to access this endpoint.
       responses:
         '200':
           description: Successful operation
@@ -419,7 +448,11 @@ paths:
           required: true
           description: Category type to filter rows
       security:
-        - BearerAuth: []
+        - BearerAuth:
+            type: http
+            scheme: bearer
+            bearerFormat: JWT
+            description: JWT authentication access token is required to access this endpoint.
       responses:
         '200':
           description: Successful operation
@@ -469,7 +502,11 @@ paths:
           required: true
           description: Maximum amount for filtering rows
       security:
-        - BearerAuth: []
+        - BearerAuth:
+            type: http
+            scheme: bearer
+            bearerFormat: JWT
+            description: JWT authentication access token is required to access this endpoint.
       responses:
         '200':
           description: Successful operation
@@ -521,7 +558,11 @@ paths:
           required: true
           description: End date for filtering rows (YYYY-MM-DD)
       security:
-        - BearerAuth: []
+        - BearerAuth:
+            type: http
+            scheme: bearer
+            bearerFormat: JWT
+            description: JWT authentication access token is required to access this endpoint.
       responses:
         '200':
           description: Successful operation
@@ -565,7 +606,11 @@ paths:
             type: integer
           description: ID of the transaction to delete
       security:
-        - BearerAuth: []
+        - BearerAuth:
+            type: http
+            scheme: bearer
+            bearerFormat: JWT
+            description: JWT authentication access token is required to access this endpoint.
       responses:
         '200':
           description: Transaction deleted successfully
@@ -617,7 +662,11 @@ paths:
                   type: string
                   example: user_password
       security:
-        - BearerAuth: []
+        - BearerAuth:
+            type: http
+            scheme: bearer
+            bearerFormat: JWT
+            description: JWT authentication access token is required to access this endpoint.
       responses:
         '200':
           description: Account deleted successfully
