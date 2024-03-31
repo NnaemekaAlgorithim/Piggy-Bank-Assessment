@@ -1,0 +1,651 @@
+openapi: 3.0.0
+info:
+  title: Piggy Bank API
+  description: API for user to track expenditures
+  version: 1.0.0
+
+paths:
+  /register:
+    post:
+      summary: Register a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                first_name:
+                  type: string
+                last_name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '201':
+          description: Registration successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Registration successful
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    examples:
+                      missing_data:
+                        value: Missing JSON data
+                      missing_value:
+                        value: Missing value for {field}
+                      email_exists:
+                        value: Email already exists, please login
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Failed to register user
+
+  /login:
+    post:
+      summary: User login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                user_password:
+                  type: string
+      responses:
+        '200':
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Login successful.
+                  access_token:
+                    type: string
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Email and password are required.
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Invalid email or password.
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Server error during login.
+
+  /logout:
+    post:
+      summary: User logout
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Logout successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Logout successful.
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Server error during logout.
+
+  /add_transaction:
+    post:
+      summary: Add a new transaction
+      description: Endpoint to add a new transaction with the provided details
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                amount:
+                  type: number
+                  example: 100.50
+                currency:
+                  type: string
+                  example: USD
+                category:
+                  type: string
+                  example: Groceries
+                transaction_description:
+                  type: string
+                  example: Grocery shopping
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Transaction added successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Transaction added successfully.
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Missing value for {field}
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Server error occurred.
+
+  /edit_transaction/{transaction_id}:
+    put:
+      summary: Edit an existing transaction
+      description: Endpoint to edit an existing transaction with the provided details
+      parameters:
+        - in: path
+          name: transaction_id
+          required: true
+          schema:
+            type: integer
+          description: ID of the transaction to edit
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                amount:
+                  type: number
+                  example: 150.75
+                currency:
+                  type: string
+                  example: USD
+                category:
+                  type: string
+                  example: Shopping
+                transaction_description:
+                  type: string
+                  example: Grocery shopping and household items
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Transaction updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Transaction updated successfully.
+        '404':
+          description: Transaction not found or permission denied
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Transaction not found or you do not have permission to edit it.
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Server error occurred.
+
+  get:
+      summary: Retrieve transactions
+      description: Endpoint to retrieve transactions
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  transactions_data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        # Define properties of each transaction item
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Server error occurred.
+
+  /get_distinct_currencies:
+    get:
+      summary: Retrieve distinct currencies
+      description: Endpoint to retrieve distinct currencies
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  distinct_currencies:
+                    type: array
+                    items:
+                      type: string
+                    example:
+                      - USD
+                      - EUR
+                      - GBP
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Server error occurred.
+
+  /get_distinct_categories:
+    get:
+      summary: Retrieve distinct categories
+      description: Endpoint to retrieve distinct categories
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  distinct_categories:
+                    type: array
+                    items:
+                      type: string
+                    example:
+                      - Groceries
+                      - Utilities
+                      - Shopping
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Server error occurred.
+
+  /get_rows_by_currency:
+    get:
+      summary: Retrieve rows by currency type
+      description: Endpoint to retrieve rows by currency type
+      parameters:
+        - in: query
+          name: currency_type
+          schema:
+            type: string
+          required: true
+          description: Currency type to filter rows
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    transaction_id:
+                      type: integer
+                    amount:
+                      type: number
+                    currency:
+                      type: string
+                    category:
+                      type: string
+                    transaction_description:
+                      type: string
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Server error occurred.
+
+  /get_rows_by_category:
+    get:
+      summary: Retrieve rows by category type
+      description: Endpoint to retrieve rows by category type
+      parameters:
+        - in: query
+          name: category_type
+          schema:
+            type: string
+          required: true
+          description: Category type to filter rows
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    transaction_id:
+                      type: integer
+                    amount:
+                      type: number
+                    currency:
+                      type: string
+                    category:
+                      type: string
+                    transaction_description:
+                      type: string
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Server error occurred.
+
+  /get_rows_by_amount_range:
+    get:
+      summary: Retrieve rows by amount range
+      description: Endpoint to retrieve rows within a specified amount range
+      parameters:
+        - in: query
+          name: min_amount
+          schema:
+            type: number
+          required: true
+          description: Minimum amount for filtering rows
+        - in: query
+          name: max_amount
+          schema:
+            type: number
+          required: true
+          description: Maximum amount for filtering rows
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    transaction_id:
+                      type: integer
+                    amount:
+                      type: number
+                    currency:
+                      type: string
+                    category:
+                      type: string
+                    transaction_description:
+                      type: string
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Server error occurred.
+
+  /get_rows_by_date_range:
+    get:
+      summary: Retrieve rows by date range
+      description: Endpoint to retrieve rows within a specified date range
+      parameters:
+        - in: query
+          name: start_date
+          schema:
+            type: string
+            format: date
+          required: true
+          description: Start date for filtering rows (YYYY-MM-DD)
+        - in: query
+          name: end_date
+          schema:
+            type: string
+            format: date
+          required: true
+          description: End date for filtering rows (YYYY-MM-DD)
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    transaction_id:
+                      type: integer
+                    amount:
+                      type: number
+                    currency:
+                      type: string
+                    category:
+                      type: string
+                    transaction_description:
+                      type: string
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Server error occurred.
+
+  /delete_transaction/{transaction_id}:
+    delete:
+      summary: Delete a transaction by ID
+      description: Endpoint to delete a transaction by its ID
+      parameters:
+        - in: path
+          name: transaction_id
+          required: true
+          schema:
+            type: integer
+          description: ID of the transaction to delete
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Transaction deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Transaction deleted successfully.
+        '404':
+          description: Transaction not found or unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Transaction not found or unauthorized.
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Server error occurred.
+
+  /delete_account:
+    delete:
+      summary: Delete user account
+      description: Endpoint to delete a user account
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: user@example.com
+                password:
+                  type: string
+                  example: user_password
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Account deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Account deleted successfully.
+        '404':
+          description: User does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: User does not exist.
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Server error occurred.

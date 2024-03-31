@@ -7,22 +7,26 @@ install flask-jwt-extended
 install cryptography
 install flask-cors
 
-curl -X POST http://localhost:5000/register -H "Content-Type: application/json" -d '{
+ssh -i Piggy_key.pem ubuntu@16.171.253.102
+http://127.0.0.1:5000
+
+
+curl -X POST http://16.171.253.102:80/register -H "Content-Type: application/json" -d '{
     "first_name": "Jerry",
     "last_name": "pam",
     "email": "jerrypam@example.com",
     "password": "jerry247"
 }'
 
-curl -X POST http://localhost:5000/login -H "Content-Type: application/json" -d '{
+curl -X POST http://16.171.253.102:80/login -H "Content-Type: application/json" -d '{
     "email": "james@example.com",
     "user_password": "james247"
 }'
 
-curl -X POST http://localhost:5000/logout -H "Authorization: Bearer <your_access_token>"
+curl -X POST http://16.171.253.102:80/logout -H "Authorization: Bearer <your_access_token>"
 
-curl -X POST http://localhost:5000/add_transaction \
--H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcxMTQ4NDgwOCwianRpIjoiMTA4NzhlYTAtMjA3YS00MmViLWJhZWEtNDAyM2M2NGY3ZjE4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImE1NzBlMDEzZDdjZjRiYTY5NzNiYzFjYzNmMWFjZjI3IiwibmJmIjoxNzExNDg0ODA4LCJjc3JmIjoiM2RhODQ3OWQtZTAxOC00Y2JiLThhNGYtM2ZiYTJhNmViYTUzIiwiZXhwIjoxNzExNDg1NzA4fQ.npWfHtQstRUhsu04rcN9v0VyOQcc2pqtXLfQbgsjNGg" \
+curl -X POST http://16.171.253.102:80/add_transaction \
+-H "Authorization: Bearer <your_access_token>" \
 -H "Content-Type: application/json" \
 -d '{
     "amount": 100.50,
@@ -31,8 +35,8 @@ curl -X POST http://localhost:5000/add_transaction \
     "transaction_description": "Grocery shopping"
 }'
 
-curl -X PUT http://localhost:5000/edit_transaction/1 \
--H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcxMTQ4OTU3OSwianRpIjoiMzBhYjhhZjgtZDE1Ni00ODczLThiYzctN2NhZDFiNTA4ZTNhIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImE1NzBlMDEzZDdjZjRiYTY5NzNiYzFjYzNmMWFjZjI3IiwibmJmIjoxNzExNDg5NTc5LCJjc3JmIjoiZmEzODcxODYtMjExZS00OTMyLWEyN2UtNmIzMjcxYTFmN2YxIiwiZXhwIjoxNzExNDkwNDc5fQ.sdaQZSKp1dEtZ9RU_aUW0Kd__E0TvaW7wV4EnIFbcHQ" \
+curl -X PUT http://16.171.253.102:80/edit_transaction/1 \
+-H "Authorization: Bearer <your_access_token>" \
 -H "Content-Type: application/json" \
 -d '{
     "amount": 150.75,
@@ -41,40 +45,33 @@ curl -X PUT http://localhost:5000/edit_transaction/1 \
     "transaction_description": "Grocery shopping and household items"
 }'
 
-curl -X POST http://localhost:5000/add_transaction -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcxMTUyOTIyMCwianRpIjoiNmE2ZGJhMTYtMDAxNi00ZDE1LTk5NGQtNDZkYmM0NWU1MzZjIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImE1NzBlMDEzZDdjZjRiYTY5NzNiYzFjYzNmMWFjZjI3IiwibmJmIjoxNzExNTI5MjIwLCJjc3JmIjoiNzM0YTYzOTYtMWFmNS00NWE0LWI5OGYtZDNiMTFlY2ViNWU0IiwiZXhwIjoxNzExNTMwMTIwfQ.FJFw3oRSHjfjSNIa4Og17pGSF-xJa_gNwQ2UlWgR5-s" -H "Content-Type: application/json" -d '{
-    "amount": 15.50,
-    "currency": "EUR",
-    "category": "Entertainment",
-    "transaction_description": "Movie Ticket"
-}'
-
-curl -X GET http://localhost:5000/get_transactions \
+curl -X GET http://16.171.253.102:80/get_transactions \
      -H "Authorization: Bearer <access_token>"
 
-curl -X GET http://localhost:5000/get_distinct_currencies \
+curl -X GET http://16.171.253.102:80/get_distinct_currencies \
      -H "Authorization: Bearer <access_token>"
 
-curl -X GET http://localhost:5000/get_distinct_categories \
+curl -X GET http://16.171.253.102:80/get_distinct_categories \
      -H "Authorization: Bearer <access_token>"
 
-curl -X GET 'http://localhost:5000/get_rows_by_currency?currency_type=USD' \
+curl -X GET 'http://16.171.253.102:80/get_rows_by_currency?currency_type=USD' \
      -H "Authorization: Bearer <access_token>"
 
-curl -X GET 'http://localhost:5000/get_rows_by_category?category_type=Utilities' \
+curl -X GET 'http://16.171.253.102:80/get_rows_by_category?category_type=Utilities' \
      -H "Authorization: Bearer <access_token>"
 
-curl -X GET 'http://localhost:5000/get_rows_by_amount_range?min_amount=100&max_amount=500' \
+curl -X GET 'http://16.171.253.102:80/get_rows_by_amount_range?min_amount=100&max_amount=500' \
      -H "Authorization: Bearer <access_token>"
 
-curl -X GET 'http://localhost:5000/get_rows_by_date_range?start_date=2022-01-01&end_date=2022-01-31' \
+curl -X GET 'http://16.171.253.102:80/get_rows_by_date_range?start_date=2022-01-01&end_date=2022-01-31' \
      -H "Authorization: Bearer <access_token>"
 
 curl -X DELETE \
-  http://localhost:5000/delete_transaction/<transaction_id> \
+  http://16.171.253.102:80/delete_transaction/<transaction_id> \
   -H "Authorization: Bearer <access_token>"
 
-curl -X DELETE http://localhost:5000/delete_account/ \
--H "Authorization: Bearer YOUR_JWT_TOKEN" \
+curl -X DELETE http://16.171.253.102:80/delete_account/ \
+-H "Authorization: Bearer <access_token>" \
 -H "Content-Type: application/json" \
 -d '{"email": "user@example.com", "password": "user_password"}'
 
